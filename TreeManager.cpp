@@ -3,7 +3,7 @@
 #include <cstdlib> 
 #include <ctime>
 
-TreeManager::TreeManager() : spawnTimer(0) {
+TreeManager::TreeManager() : spawnTimer(0), treeCount(0) {
     srand(time(nullptr));
 }
 

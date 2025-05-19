@@ -6,9 +6,9 @@ const int KEY_SPACE = 32;
 
 const int MAX_JUMP = 12;
 const int Y_BASE = 10;
-const int Y_COLLISION = 4;
+const int Y_COLLISION = 3;
 
-const int TREE_COLLISION = 7;
+const int TREE_COLLISION = 3;
 const int TREE_START = 50;
 const int TREE_END = -6;
 

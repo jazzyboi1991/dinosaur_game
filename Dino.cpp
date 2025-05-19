@@ -42,7 +42,7 @@ void Dino::update()
                 fallProgress -= 1.0f;
             }
         }
-        else if(yPos == 0)
+        else if(yPos == 2)
         {
             if(landingDelay < landingDelayThreshold)
             {
@@ -79,4 +79,10 @@ void Dino::draw()
 int Dino::getYPos() const
 {
     return yPos;
+}
+
+void Dino::setJumpFallSpeed(float baseSpeed)
+{
+    jumpSpeed = 0.6f + baseSpeed * 0.15f;
+    fallSpeed = 0.6f + baseSpeed * 0.15f;
 }

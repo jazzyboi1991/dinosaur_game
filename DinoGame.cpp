@@ -14,6 +14,8 @@ void DinoGame::run() {
     ScreenUtility::CursorSettings();
     srand(time(nullptr));
 
+    dino.setJumpFallSpeed(speed);
+
     while (isRunning) {
         int key = GetKeyDown();
         bool space_pressed = (key == KEY_SPACE);
@@ -36,12 +38,11 @@ void DinoGame::run() {
             isRunning = false;
         }
 
-        // 점수는 속도에 비례하여 증가
         score += speed;
 
-        // 난이도 점진 증가
         if (++frameCount % 300 == 0 && speed < 10) {
             speed += 0.2;
+            dino.setJumpFallSpeed(speed);
         }
 
         ScreenUtility::Clear();

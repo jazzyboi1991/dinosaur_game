@@ -3,7 +3,7 @@
 #include <fcntl.h>
 #include <cstdio>
 
-bool wasKeyPressed = false;
+bool wasKeyPressed;
 
 int GetKeyDown()
 {
