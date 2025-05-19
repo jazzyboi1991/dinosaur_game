@@ -53,6 +53,10 @@ void DinoGame::run() {
 
         this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
     }
+}
 
-    cout << "\n\n게임 오버! 최종 점수: " << score << "\n";
+
+int DinoGame::getScore() const
+{
+    return score;
 }

@@ -15,6 +15,7 @@ private:
     bool prev_space_pressed;
 public:
     DinoGame();
+    int getScore() const;
     void run();
 };
 
