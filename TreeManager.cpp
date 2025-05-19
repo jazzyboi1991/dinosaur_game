@@ -17,15 +17,15 @@ void TreeManager::update(float speed) {
 
 
     if (--spawnTimer <= 0) {
-        if(trees.size() < 3 && rand() % 100 < 80) {
+        if(trees.size() < 3) {
             trees.push_back(Tree());
             treeCount++;
         }
         else {
             treeCount = 0;
         }
-        int base = 100 + rand() % 80;
-        spawnTimer = std::max(20, static_cast<int>(base / speed));
+        int base = 80 + rand() % 60;
+        spawnTimer = std::max(15, static_cast<int>(base / speed));
     }
 }
 
