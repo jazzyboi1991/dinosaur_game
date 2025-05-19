@@ -9,10 +9,10 @@ private:
     Dino dino;
     TreeManager treeManager;
     bool isRunning;
-    int speed;
+    double speed;
     int frameCount;
     int score;
-
+    bool prev_space_pressed;
 public:
     DinoGame();
     void run();

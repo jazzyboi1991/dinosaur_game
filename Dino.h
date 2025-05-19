@@ -5,9 +5,12 @@
 class Dino {
 private:
     int yPos = 0;
-    bool isJumping = false;
-    bool isJumped = false;
+    int jumpCount = 0;
+    bool isFalling = false;
     bool footToggle = false;
+    const int maxJumpCount = 2;
+    int landingDelay = 0;
+    const int landingDelayThreshold = 5;
 public:
     void update();
     void draw();

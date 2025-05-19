@@ -16,8 +16,11 @@ void TreeManager::update(int speed) {
 
 
     if (--spawnTimer <= 0) {
-        trees.push_back(Tree());
-        spawnTimer = 20 + rand() % 30;
+        if(rand() % 100 < 80)
+        {
+            trees.push_back(Tree());
+        }
+        spawnTimer = 100 + rand() % 70;
     }
 }
 

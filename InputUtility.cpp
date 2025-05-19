@@ -3,6 +3,8 @@
 #include <fcntl.h>
 #include <cstdio>
 
+bool wasKeyPressed = false;
+
 int GetKeyDown()
 {
     struct termios oldt, newt;
@@ -22,6 +24,16 @@ int GetKeyDown()
     fcntl(STDIN_FILENO, F_SETFL, oldf);
 
     if (ch != EOF)
-        return ch;
+    {
+        if(!wasKeyPressed)
+        {
+            wasKeyPressed = true;
+            return ch;
+        }
+    }
+    else
+    {
+        wasKeyPressed = false;
+    }
     return 0;
 }

@@ -4,38 +4,59 @@
 #include "Constants.h"
 using namespace std;
 
+float jumpSpeed = 0.9f;
+float jumpProgress = 0.0f;
+float fallSpeed = 0.9f;
+float fallProgress = 0.0f;
+
 void Dino::jump()
 {
-    isJumping = true;
+    if(jumpCount < maxJumpCount)
+    {
+        isFalling = false;
+        jumpCount++;
+        landingDelay = 0;
+    }
 }
 
 void Dino::update()
 {
-    if(isJumping)
+    if(!isFalling && yPos < MAX_JUMP)
     {
-        if(yPos < MAX_JUMP && !isJumped)
+        jumpProgress += jumpSpeed;
+        if(jumpProgress >= 1.0f)
         {
             yPos++;
-        }
-        else if(isJumped && yPos == 0)
-        {
-            isJumped = false;
-            isJumping = false;
-        }
-        else if(isJumped)
-        {
-            yPos--;
-        }
-        else if(yPos == MAX_JUMP)
-        {
-            isJumped = true;
+            jumpProgress -= 1.0f;
         }
     }
     else
     {
+        isFalling = true;
         if(yPos > 0)
         {
-            yPos--;
+            fallProgress += fallSpeed;
+            if(fallProgress >= 1.0f)
+            {
+                yPos--;
+                fallProgress -= 1.0f;
+            }
+        }
+        else if(yPos == 0)
+        {
+            if(landingDelay < landingDelayThreshold)
+            {
+                landingDelay++;
+            }
+            else
+            {
+                jumpCount = 0;
+            }
+        }
+        else
+        {
+            jumpCount = 0;
+            landingDelay = 0;
         }
     }
 }

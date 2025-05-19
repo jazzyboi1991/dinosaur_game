@@ -8,7 +8,7 @@
 
 using namespace std;
 
-DinoGame::DinoGame() : isRunning(true), speed(1), frameCount(0), score(0) {}
+DinoGame::DinoGame() : isRunning(true), speed(1.5), frameCount(0), score(0), prev_space_pressed(false) {}
 
 void DinoGame::run() {
     ScreenUtility::CursorSettings();
@@ -16,8 +16,18 @@ void DinoGame::run() {
 
     while (isRunning) {
         int key = GetKeyDown();
-        if (key == KEY_SPACE) dino.jump();
-        if (key == KEY_ESC) isRunning = false;
+        bool space_pressed = (key == KEY_SPACE);
+
+        if(space_pressed && !prev_space_pressed)
+        {
+            dino.jump();
+        }
+        prev_space_pressed = space_pressed;
+
+        if(key == KEY_ESC)
+        {
+            isRunning = false;
+        }
 
         dino.update();
         treeManager.update(speed);
@@ -31,7 +41,7 @@ void DinoGame::run() {
 
         // 난이도 점진 증가
         if (++frameCount % 300 == 0 && speed < 10) {
-            speed++;
+            speed += 0.2;
         }
 
         ScreenUtility::Clear();

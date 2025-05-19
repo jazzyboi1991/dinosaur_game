@@ -4,7 +4,7 @@
 const int KEY_ESC = 27;
 const int KEY_SPACE = 32;
 
-const int MAX_JUMP = 8;
+const int MAX_JUMP = 12;
 const int Y_BASE = 10;
 const int Y_COLLISION = 4;
 
