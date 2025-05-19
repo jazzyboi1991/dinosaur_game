@@ -8,7 +8,7 @@
 
 using namespace std;
 
-DinoGame::DinoGame() : isRunning(true), speed(1.5), frameCount(0), score(0), prev_space_pressed(false) {}
+DinoGame::DinoGame() : isRunning(true), speed(1.0), frameCount(0), score(0), prev_space_pressed(false) {}
 
 void DinoGame::run() {
     ScreenUtility::CursorSettings();

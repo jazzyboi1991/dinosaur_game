@@ -2,12 +2,13 @@
 #include "Constants.h"
 #include <cstdlib> 
 #include <ctime>
+#include <algorithm>
 
 TreeManager::TreeManager() : spawnTimer(0), treeCount(0) {
     srand(time(nullptr));
 }
 
-void TreeManager::update(int speed) {
+void TreeManager::update(float speed) {
     for (auto& tree : trees)
         tree.update(speed);
 
@@ -16,11 +17,15 @@ void TreeManager::update(int speed) {
 
 
     if (--spawnTimer <= 0) {
-        if(rand() % 100 < 80)
-        {
+        if(trees.size() < 3 && rand() % 100 < 80) {
             trees.push_back(Tree());
+            treeCount++;
         }
-        spawnTimer = 100 + rand() % 70;
+        else {
+            treeCount = 0;
+        }
+        int base = 100 + rand() % 80;
+        spawnTimer = std::max(20, static_cast<int>(base / speed));
     }
 }
 

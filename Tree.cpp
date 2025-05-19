@@ -9,7 +9,7 @@ Tree::Tree()
     this->xPos = TREE_START;
 }
 
-void Tree::update(int speed)
+void Tree::update(float speed)
 {
     if(xPos > TREE_END)
         xPos -= speed;

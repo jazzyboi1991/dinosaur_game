@@ -5,10 +5,10 @@
 
 class Tree {
 private:
-    int xPos = 50;
+    float xPos = 50;
 public:
     Tree();
-    void update(int speed);
+    void update(float speed);
     void draw() const;
     bool isOffScreen() const;
     int getX() const;

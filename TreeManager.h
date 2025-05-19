@@ -11,7 +11,7 @@ private:
     int treeCount;
 public:
     TreeManager();
-    void update(int speed);
+    void update(float speed);
     void draw() const;
     bool checkCollision(int dinoY) const;
 };
