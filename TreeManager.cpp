@@ -16,6 +16,7 @@ void TreeManager::update(float speed) {
         [](const Tree& t) { return t.isOffScreen(); }), trees.end());
 
 
+<<<<<<< HEAD
     spawnAccumulator += speed * (0.7f + (rand() % 31) * 0.01f);
     float spawnThreshold = 80.0f + rand() % 40;
 
@@ -27,6 +28,12 @@ void TreeManager::update(float speed) {
             {
                 trees.push_back(Tree());
             }
+=======
+    if (--spawnTimer <= 0) {
+        if(trees.size() < 3) {
+            trees.push_back(Tree());
+            treeCount++;
+>>>>>>> parent of 04ca352 (Ver. 6.1.2)
         }
         spawnAccumulator = 0.0f;
     }
