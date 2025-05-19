@@ -18,8 +18,10 @@ void TreeManager::update(float speed) {
 
     if (--spawnTimer <= 0) {
         if(trees.size() < 3) {
-            trees.push_back(Tree());
-            treeCount++;
+            if(trees.empty() || trees.back().getX() < TREE_START - MIN_TREE_GAP) {
+                trees.push_back(Tree());
+                treeCount++;
+            }
         }
         else {
             treeCount = 0;
