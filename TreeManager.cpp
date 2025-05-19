@@ -33,6 +33,9 @@ void TreeManager::update(float speed) {
         if(trees.size() < 3) {
             trees.push_back(Tree());
             treeCount++;
+<<<<<<< HEAD
+>>>>>>> parent of 04ca352 (Ver. 6.1.2)
+=======
 >>>>>>> parent of 04ca352 (Ver. 6.1.2)
         }
         spawnAccumulator = 0.0f;
