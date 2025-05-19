@@ -1,69 +1,47 @@
-#include <iostream>
-#include <unistd.h>
 #include "DinoGame.h"
-#include "Dino.h"
-#include "Tree.h"
-#include "ScreenUtility.h"
 #include "Constants.h"
+#include "ScreenUtility.h"
+#include "InputUtility.h"
+#include <iostream>
+#include <thread>
+#include <chrono>
+
 using namespace std;
 
+DinoGame::DinoGame() : isRunning(true), speed(1), frameCount(0), score(0) {}
 
-
-int GetKeyDown();
-
-void DinoGame::run()
-{
-    int score = 0;
-    bool collision = false;
-
-    Dino dino;
-    Tree tree;
-
+void DinoGame::run() {
     ScreenUtility::CursorSettings();
-    ScreenUtility::Clear();
+    srand(time(nullptr));
 
-    while(true)
-    {
-        ScreenUtility::SetCursor(0, 0);
-        cout<<"Score: "<<score<<endl;
-
+    while (isRunning) {
         int key = GetKeyDown();
-        if(key == KEY_ESC)
-        {
-            printf("\033[?25h");
-            return;
-        }
-        else if(key == KEY_SPACE)
-        {
-            dino.jump();
-        }
-        
+        if (key == KEY_SPACE) dino.jump();
+        if (key == KEY_ESC) isRunning = false;
+
         dino.update();
-        tree.update();
+        treeManager.update(speed);
 
-        if(tree.getX() < TREE_COLLISION && dino.getYPos() < Y_COLLISION
-            && tree.getX() > TREE_END + 1)
-        {
-            collision = true;
+        if (treeManager.checkCollision(dino.getYPos())) {
+            isRunning = false;
         }
 
-        tree.draw();
-        dino.draw();
+        // 점수는 속도에 비례하여 증가
+        score += speed;
 
-        usleep(SLEEP_TIME * 1000);
+        // 난이도 점진 증가
+        if (++frameCount % 300 == 0 && speed < 10) {
+            speed++;
+        }
+
         ScreenUtility::Clear();
+        dino.draw();
+        treeManager.draw();
+        ScreenUtility::SetCursor(0, 0);
+        cout << "점수: " << score << "  속도: " << speed << endl;
 
-        if(collision)
-        {
-            cout<<"\n\n            Game Over\n           Score : "<<score<<endl;
-            cout << "\nPress Enter to exit...";
-            getchar();
-            printf("\033[?25h");
-            return;
-        }
-        else
-        {
-            score++;
-        }
+        this_thread::sleep_for(chrono::milliseconds(SLEEP_TIME));
     }
+
+    cout << "\n\n게임 오버! 최종 점수: " << score << "\n";
 }

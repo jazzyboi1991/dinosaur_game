@@ -4,10 +4,15 @@
 #include "Constants.h"
 using namespace std;
 
-void Tree::update()
+Tree::Tree()
+{
+    this->xPos = TREE_START;
+}
+
+void Tree::update(int speed)
 {
     if(xPos > TREE_END)
-        xPos -= 2;
+        xPos -= speed;
     else
         xPos = TREE_START;
 }
@@ -21,6 +26,10 @@ void Tree::draw() const
         ScreenUtility::SetCursor(x, Y_BASE + 2); cout << "DDDDD\n";
         ScreenUtility::SetCursor(x, Y_BASE + 3); cout << "  D  \n";
     }
+}
+
+bool Tree::isOffScreen() const {
+    return xPos < TREE_END;
 }
 
 int Tree::getX() const

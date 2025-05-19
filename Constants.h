@@ -1,17 +1,17 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-constexpr int KEY_ESC = 27;
-constexpr int KEY_SPACE = 32;
+const int KEY_ESC = 27;
+const int KEY_SPACE = 32;
 
-constexpr int MAX_JUMP = 8;
-constexpr int Y_BASE = 10;
-constexpr int Y_COLLISION = 4;
+const int MAX_JUMP = 8;
+const int Y_BASE = 10;
+const int Y_COLLISION = 4;
 
-constexpr int TREE_COLLISION = 7;
-constexpr int TREE_START = 50;
-constexpr int TREE_END = -6;
+const int TREE_COLLISION = 7;
+const int TREE_START = 50;
+const int TREE_END = -6;
 
-constexpr int SLEEP_TIME = 35;
+const int SLEEP_TIME = 35;
 
 #endif

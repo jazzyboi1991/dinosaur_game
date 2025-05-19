@@ -7,8 +7,10 @@ class Tree {
 private:
     int xPos = 50;
 public:
-    void update();
+    Tree();
+    void update(int speed);
     void draw() const;
+    bool isOffScreen() const;
     int getX() const;
 };
 
