@@ -83,6 +83,6 @@ int Dino::getYPos() const
 
 void Dino::setJumpFallSpeed(float baseSpeed)
 {
-    jumpSpeed = 0.6f + baseSpeed * 0.15f;
-    fallSpeed = 0.6f + baseSpeed * 0.15f;
+    jumpSpeed = 1.0f + baseSpeed * 0.5f;
+    fallSpeed = 1.0f + baseSpeed * 0.5f;
 }
