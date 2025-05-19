@@ -13,11 +13,10 @@ void TreeManager::update(float speed) {
         tree.update(speed);
 
     trees.erase(std::remove_if(trees.begin(), trees.end(),
-        [](const Tree& t) { return t.isOffScreen(); }), trees.end());
+        [](const Tree& t) {return t.isOffScreen();}), trees.end());
 
-
-    spawnAccumulator += speed * (0.7f + (rand() % 31) * 0.01f);
-    float spawnThreshold = 80.0f + rand() % 40;
+    spawnAccumulator += speed * 1.0f;
+    spawnThreshold = 100.0f;
 
     if(spawnAccumulator >= spawnThreshold)
     {

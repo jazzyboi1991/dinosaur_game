@@ -7,7 +7,7 @@ class Tree {
 private:
     float xPos = 50;
 public:
-    Tree();
+    Tree(int xOffset = 0);
     void update(float speed);
     void draw() const;
     bool isOffScreen() const;

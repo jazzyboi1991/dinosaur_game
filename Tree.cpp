@@ -4,9 +4,9 @@
 #include "Constants.h"
 using namespace std;
 
-Tree::Tree()
+Tree::Tree(int xOffset)
 {
-    this->xPos = TREE_START;
+    this->xPos = TREE_START + xOffset;
 }
 
 void Tree::update(float speed)
