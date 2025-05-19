@@ -25,7 +25,7 @@ void TreeManager::update(float speed) {
             treeCount = 0;
         }
         int base = 80 + rand() % 60;
-        spawnTimer = std::max(15, static_cast<int>(base / speed));
+        spawnTimer = std::max(15, static_cast<int>(base / (speed * 1.2f)));
     }
 }
 
