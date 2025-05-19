@@ -7,8 +7,9 @@
 class TreeManager {
 private:
     std::vector<Tree> trees;
-    int spawnTimer;
     int treeCount;
+    float spawnAccumulator = 0.0f;
+    float spawnThreshold;
 public:
     TreeManager();
     void update(float speed);

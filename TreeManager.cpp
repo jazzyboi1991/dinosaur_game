@@ -4,7 +4,7 @@
 #include <ctime>
 #include <algorithm>
 
-TreeManager::TreeManager() : spawnTimer(0), treeCount(0) {
+TreeManager::TreeManager() : spawnAccumulator(0.0f), treeCount(0) {
     srand(time(nullptr));
 }
 
@@ -16,18 +16,19 @@ void TreeManager::update(float speed) {
         [](const Tree& t) { return t.isOffScreen(); }), trees.end());
 
 
-    if (--spawnTimer <= 0) {
-        if(trees.size() < 3) {
-            if(trees.empty() || trees.back().getX() < TREE_START - MIN_TREE_GAP) {
+    spawnAccumulator += speed * (0.7f + (rand() % 31) * 0.01f);
+    float spawnThreshold = 80.0f + rand() % 40;
+
+    if(spawnAccumulator >= spawnThreshold)
+    {
+        if(trees.size() < 3)
+        {
+            if(trees.empty() || trees.back().getX() < TREE_START - MIN_TREE_GAP)
+            {
                 trees.push_back(Tree());
-                treeCount++;
             }
         }
-        else {
-            treeCount = 0;
-        }
-        int base = 80 + rand() % 60;
-        spawnTimer = std::max(15, static_cast<int>(base / (speed * 1.2f)));
+        spawnAccumulator = 0.0f;
     }
 }
 
