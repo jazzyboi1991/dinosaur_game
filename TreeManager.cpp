@@ -16,7 +16,7 @@ void TreeManager::update(float speed) {
         [](const Tree& t) {return t.isOffScreen();}), trees.end());
 
     spawnAccumulator += speed * 1.0f;
-    spawnThreshold = 100.0f;
+    spawnThreshold = 20.0f;
 
     if(spawnAccumulator >= spawnThreshold)
     {
