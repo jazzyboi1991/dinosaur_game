@@ -10,6 +10,7 @@ private:
     int treeCount;
     float spawnAccumulator = 0.0f;
     float spawnThreshold;
+    int gap;
 public:
     TreeManager();
     void update(float speed);
