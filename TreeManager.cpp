@@ -6,6 +6,7 @@
 
 TreeManager::TreeManager() : spawnAccumulator(0.0f), treeCount(0) {
     srand(time(nullptr));
+    spawnThreshold = static_cast<float>(rand() % 15 + 25);
 }
 
 void TreeManager::update(float speed) {
@@ -16,7 +17,6 @@ void TreeManager::update(float speed) {
         [](const Tree& t) {return t.isOffScreen();}), trees.end());
 
     spawnAccumulator += speed * 1.0f;
-    spawnThreshold = 20.0f;
 
     if(spawnAccumulator >= spawnThreshold)
     {
@@ -25,6 +25,15 @@ void TreeManager::update(float speed) {
             if(trees.empty() || trees.back().getX() < TREE_START - MIN_TREE_GAP)
             {
                 trees.push_back(Tree());
+                int raw = rand() % 100;
+                if(raw < 10)
+                    spawnThreshold = static_cast<float>(rand() % 10 + 5);
+                else if(raw < 30)
+                    spawnThreshold = static_cast<float>(rand() % 15 + 20);
+                else if(raw < 60)
+                    spawnThreshold = static_cast<float>(rand() % 20 + 35);
+                else
+                    spawnThreshold = static_cast<float>(rand() % 25 + 55);
             }
         }
         spawnAccumulator = 0.0f;
