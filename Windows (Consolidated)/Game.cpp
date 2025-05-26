@@ -50,14 +50,9 @@ public:
 // ---------------- InputUtility ----------------
 bool wasKeyPressed = false;
 int GetKeyDown() {
-    if (_kbhit()) {
-        int ch = _getch();
-        if (!wasKeyPressed) {
-            wasKeyPressed = true;
-            return ch;
-        }
-    } else {
-        wasKeyPressed = false;
+    if (_kbhit())
+    {
+        return _getch();
     }
     return 0;
 }
@@ -248,8 +243,11 @@ public:
         int loopcount = 0;
 
         while (isRunning) {
+
             cout << "[Debug] Loop count: " << loopcount++ << "\n";
+
             int key = GetKeyDown();
+            cout << "[Debug] Key Status: " << key << "\n";
             bool space_pressed = (key == KEY_SPACE);
 
             if (space_pressed && !prev_space_pressed)
