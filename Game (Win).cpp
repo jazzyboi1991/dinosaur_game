@@ -119,7 +119,7 @@ public:
         gapCounter += 1.0f;
 
         if (gapCounter >= gapThreshold && trees.size() < 4) {
-            gapThreshold = static_cast<float>(rand() % 8 + 15);
+            gapThreshold = static_cast<float>(rand() % 8 + 10);
             
             float chance = static_cast<float>(rand() % 21 + 80) / 100.0f;
             if ((rand() % 100) < static_cast<int>(chance * 100)) {
@@ -212,9 +212,9 @@ public:
     }
 
     void setJumpFallSpeed(float baseSpeed) {
-        // 속도 증가에 비례해서 점프/낙하 속도 증가
-        jumpSpeed = 1.2f + baseSpeed * 0.3f;   // 기본값보다 약간 빠르게 증가
-        fallSpeed = 1.4f + baseSpeed * 0.35f;  // 낙하 속도는 조금 더 빠르게
+        // 고정 속도 적용
+        jumpSpeed = 1.6f;
+        fallSpeed = 1.8f;
     }
 };
 
