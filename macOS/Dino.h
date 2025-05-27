@@ -2,18 +2,24 @@
 #define DINO_H_
 
 #pragma once
-class Dino {
+#include "ScreenUtility.h"
+
+class Dino
+{
 private:
-    int yPos = 0;
-    int jumpCount = 0;
-    bool isFalling = true;
-    bool footToggle = false;
+    int yPos;
+    int jumpCount;
+    bool isFalling;
+    bool footToggle;
     const int maxJumpCount = 2;
-    int landingDelay = 0;
+    int landingDelay;
     const int landingDelayThreshold = 5;
-    float jumpSpeed = 0.9f;
-    float fallSpeed = 0.9f;
+    float jumpSpeed;
+    float fallSpeed;
+    float jumpProgress;
+    float fallProgress;
 public:
+    Dino();
     void update();
     void draw();
     void jump();

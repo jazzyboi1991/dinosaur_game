@@ -1,16 +1,17 @@
-#ifndef TREEMANAGER_H
-#define TREEMANAGER_H
+#ifndef TREEMANAGER_H_
+#define TREEMANAGER_H_
 
+#pragma once
 #include <vector>
 #include "Tree.h"
 
-class TreeManager {
+class TreeManager
+{
 private:
     std::vector<Tree> trees;
-    int treeCount;
-    float spawnAccumulator = 0.0f;
-    float spawnThreshold;
-    int gap;
+    float gapCounter;
+    float gapThreshold;
+    float spawnChance;
 public:
     TreeManager();
     void update(float speed);

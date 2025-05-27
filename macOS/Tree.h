@@ -2,10 +2,12 @@
 #define TREE_H_
 
 #pragma once
+#include "ScreenUtility.h"
 
-class Tree {
+class Tree
+{
 private:
-    float xPos = 50;
+    float xPos;
 public:
     Tree(int xOffset = 0);
     void update(float speed);

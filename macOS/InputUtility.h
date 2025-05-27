@@ -3,6 +3,6 @@
 
 #pragma once
 
-int GetKeyDown();
+int getKeyDown();
 
 #endif

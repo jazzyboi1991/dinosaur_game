@@ -1,10 +1,12 @@
-#ifndef DINOGAME_H
-#define DINOGAME_H
+#ifndef DINOGAME_H_
+#define DINOGAME_H_
 
+#pragma once
 #include "Dino.h"
 #include "TreeManager.h"
 
-class DinoGame {
+class DinoGame
+{
 private:
     Dino dino;
     TreeManager treeManager;
