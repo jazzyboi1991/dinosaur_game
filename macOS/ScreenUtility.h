@@ -7,7 +7,7 @@ class ScreenUtility
 {
 public:
     static void CursorSettings();
-    static void SetCursor();
+    static void SetCursor(int x, int y);
     static void Clear();
 };
 
