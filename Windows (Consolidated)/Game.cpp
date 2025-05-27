@@ -121,9 +121,9 @@ public:
         {
             float chance = 0.0f;
             if (speed < 3.0f) {
-                chance = (static_cast<float>(rand() % 20 + 10) / 100.0f) * (speed / 3.0f);
+                chance = (static_cast<float>(rand() % 50 + 50) / 100.0f);  // 50~99% 확률
             } else {
-                chance = static_cast<float>(rand() % 20 + 50) / 100.0f;
+                chance = 1.0f;  // 무조건 생성
             }
             if ((rand() % 100) < static_cast<int>(chance * 100)) {
             trees.push_back(Tree());
@@ -157,15 +157,16 @@ private:
     const int maxJumpCount = 2;
     int landingDelay = 0;
     const int landingDelayThreshold = 5;
-    float jumpSpeed = 0.9f;
-    float fallSpeed = 0.9f;
+    float jumpSpeed;
+    float fallSpeed;
     float jumpProgress = 0.0f;
     float fallProgress = 0.0f;
+
 public:
     void update() {
         if (!isFalling && yPos < MAX_JUMP) {
             jumpProgress += jumpSpeed;
-            if (jumpProgress >= 1.0f) {
+            while (jumpProgress >= 1.0f && yPos < MAX_JUMP) {
                 yPos++;
                 jumpProgress -= 1.0f;
             }
@@ -173,7 +174,7 @@ public:
             isFalling = true;
             if (yPos > 0) {
                 fallProgress += fallSpeed;
-                if (fallProgress >= 1.0f) {
+                while (fallProgress >= 1.0f && yPos > 0) {
                     yPos--;
                     fallProgress -= 1.0f;
                 }
@@ -190,12 +191,15 @@ public:
     }
 
     void draw() {
-        ScreenUtility::SetCursor(0, Y_BASE - yPos);
-        cout << "    D\n    DD\nDDDDD\n";
-        if (footToggle)
-            cout << "D\n";
-        else
-            cout << "    D\n";
+        int yDraw = max(0, Y_BASE - yPos);
+        ScreenUtility::SetCursor(0, yDraw);
+        cout << "    D\n";
+        ScreenUtility::SetCursor(0, yDraw + 1);
+        cout << "    DD\n";
+        ScreenUtility::SetCursor(0, yDraw + 2);
+        cout << "DDDDD\n";
+        ScreenUtility::SetCursor(0, yDraw + 3);
+        cout << (footToggle ? "D\n" : "    D\n");
         footToggle = !footToggle;
     }
 
@@ -212,8 +216,9 @@ public:
     }
 
     void setJumpFallSpeed(float baseSpeed) {
-        jumpSpeed = 1.0f + baseSpeed * 5.0f;
-        fallSpeed = 1.0f + baseSpeed * 5.0f;
+        // 고정 속도 적용
+        jumpSpeed = 1.6f;
+        fallSpeed = 1.8f;
     }
 };
 
@@ -233,7 +238,7 @@ public:
     int getScore() const { return score; }
 
     void run() {
-        //ScreenUtility::Clear();
+        ScreenUtility::Clear();
         ScreenUtility::CursorSettings();
         srand((unsigned)time(nullptr));
         dino.setJumpFallSpeed(speed);
@@ -241,7 +246,7 @@ public:
         int loopcount = 0;
 
         while (isRunning) {
-            //ScreenUtility::Clear();
+            ScreenUtility::Clear();
             int key = GetKeyDown();
             bool space_pressed = (key == KEY_SPACE);
 
