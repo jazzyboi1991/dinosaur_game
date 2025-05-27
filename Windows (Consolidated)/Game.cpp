@@ -107,29 +107,25 @@ public:
     }
 
     void update(float speed) {
+    // 이동 속도는 속도 비례 (더 빠르게 이동)
+        float moveSpeed = speed * 1.2f;
+
         for (auto& tree : trees)
-            tree.update(speed);
+            tree.update(moveSpeed);
 
         trees.erase(remove_if(trees.begin(), trees.end(),
-            [](const Tree& t) {return t.isOffScreen();}), trees.end());
-        
-        gapThreshold = 30.0f;
+            [](const Tree& t) { return t.isOffScreen(); }), trees.end());
 
         gapCounter += 1.0f;
 
-        if(gapCounter >= gapThreshold && trees.size() < 4)
-        {
-            float chance = 0.0f;
-            if (speed < 3.0f) {
-                chance = (static_cast<float>(rand() % 50 + 50) / 100.0f);  // 50~99% 확률
-            } else {
-                chance = 1.0f;  // 무조건 생성
-            }
+        if (gapCounter >= gapThreshold && trees.size() < 4) {
+            gapThreshold = static_cast<float>(rand() % 8 + 10);
+            
+            float chance = static_cast<float>(rand() % 21 + 80) / 100.0f;
             if ((rand() % 100) < static_cast<int>(chance * 100)) {
-            trees.push_back(Tree());
-        }
-
-        gapCounter = 0.0f;
+                trees.push_back(Tree());
+            }
+            gapCounter = 0.0f;
         }
     }
 
