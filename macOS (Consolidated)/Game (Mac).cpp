@@ -111,42 +111,34 @@ public:
 class TreeManager {
 private:
     std::vector<Tree> trees;
-    float spawnAccumulator = 0.0f;
-    float spawnThreshold;
-    int gap;
+    float gapCounter = 0.0f;
+    float gapThreshold = 30.0f;
+    float spawnChance = 0.7f;
 public:
     TreeManager() {
         srand(time(nullptr));
-        spawnThreshold = static_cast<float>(rand() % 15 + 25);
-        gap = rand() % 20 + 20;
     }
 
     void update(float speed) {
+    // 이동 속도는 속도 비례 (더 빠르게 이동)
+        float moveSpeed = speed * 1.2f;
+
         for (auto& tree : trees)
-            tree.update(speed);
+            tree.update(moveSpeed);
 
         trees.erase(remove_if(trees.begin(), trees.end(),
-            [](const Tree& t) {return t.isOffScreen();}), trees.end());
+            [](const Tree& t) { return t.isOffScreen(); }), trees.end());
 
-        spawnAccumulator += speed * 1.0f;
+        gapCounter += 1.0f;
 
-        if (spawnAccumulator >= spawnThreshold) {
-            if (trees.size() < 4) {
-                if (trees.empty() || trees.back().getX() < TREE_START - gap) {
-                    trees.push_back(Tree());
-                    gap = rand() % 20 + 20;
-                    int raw = rand() % 100;
-                    if (raw < 10)
-                        spawnThreshold = static_cast<float>(rand() % 10 + 5);
-                    else if (raw < 30)
-                        spawnThreshold = static_cast<float>(rand() % 15 + 20);
-                    else if (raw < 60)
-                        spawnThreshold = static_cast<float>(rand() % 20 + 35);
-                    else
-                        spawnThreshold = static_cast<float>(rand() % 25 + 55);
-                }
+        if (gapCounter >= gapThreshold && trees.size() < 4) {
+            gapThreshold = static_cast<float>(rand() % 30 + 20);
+            
+            float chance = static_cast<float>(rand() % 21 + 80) / 100.0f;
+            if ((rand() % 100) < static_cast<int>(chance * 100)) {
+                trees.push_back(Tree());
             }
-            spawnAccumulator = 0.0f;
+            gapCounter = 0.0f;
         }
     }
 
@@ -174,15 +166,16 @@ private:
     const int maxJumpCount = 2;
     int landingDelay = 0;
     const int landingDelayThreshold = 5;
-    float jumpSpeed = 0.9f;
-    float fallSpeed = 0.9f;
+    float jumpSpeed;
+    float fallSpeed;
     float jumpProgress = 0.0f;
     float fallProgress = 0.0f;
+
 public:
     void update() {
         if (!isFalling && yPos < MAX_JUMP) {
             jumpProgress += jumpSpeed;
-            if (jumpProgress >= 1.0f) {
+            while (jumpProgress >= 1.0f && yPos < MAX_JUMP) {
                 yPos++;
                 jumpProgress -= 1.0f;
             }
@@ -190,7 +183,7 @@ public:
             isFalling = true;
             if (yPos > 0) {
                 fallProgress += fallSpeed;
-                if (fallProgress >= 1.0f) {
+                while (fallProgress >= 1.0f && yPos > 0) {
                     yPos--;
                     fallProgress -= 1.0f;
                 }
@@ -229,8 +222,9 @@ public:
     }
 
     void setJumpFallSpeed(float baseSpeed) {
-        jumpSpeed = 1.0f + baseSpeed * 0.5f;
-        fallSpeed = 1.0f + baseSpeed * 0.5f;
+        // 속도 증가에 비례해서 점프/낙하 속도 증가
+        jumpSpeed = 1.0f + baseSpeed * 0.3f;   // 기본값보다 약간 빠르게 증가
+        fallSpeed = 1.2f + baseSpeed * 0.35f;  // 낙하 속도는 조금 더 빠르게
     }
 };
 
