@@ -234,13 +234,13 @@ public:
     int getScore() const { return score; }
 
     void run() {
-        ScreenUtility::Clear();
+        //ScreenUtility::Clear();
         ScreenUtility::CursorSettings();
         srand((unsigned)time(nullptr));
         dino.setJumpFallSpeed(speed);
 
         while (isRunning) {
-            ScreenUtility::Clear();
+            //ScreenUtility::Clear();
             int key = GetKeyDown();
             bool space_pressed = (key == KEY_SPACE);
 
