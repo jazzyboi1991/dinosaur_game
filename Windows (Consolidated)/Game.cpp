@@ -121,11 +121,10 @@ public:
         {
             float chance = 0.0f;
             if (speed < 3.0f) {
-                chance = (static_cast<float>(rand() % 50 + 50) / 100.0f);  // 50~99% 확률
+                chance = (static_cast<float>(rand() % 20 + 10) / 100.0f) * (speed / 3.0f);
             } else {
-                chance = 1.0f;  // 무조건 생성
+                chance = static_cast<float>(rand() % 20 + 50) / 100.0f;
             }
-
             if ((rand() % 100) < static_cast<int>(chance * 100)) {
             trees.push_back(Tree());
         }
@@ -158,8 +157,8 @@ private:
     const int maxJumpCount = 2;
     int landingDelay = 0;
     const int landingDelayThreshold = 5;
-    float jumpSpeed = 5.0f;
-    float fallSpeed = 5.0f;
+    float jumpSpeed = 0.9f;
+    float fallSpeed = 0.9f;
     float jumpProgress = 0.0f;
     float fallProgress = 0.0f;
 public:
@@ -174,7 +173,7 @@ public:
             isFalling = true;
             if (yPos > 0) {
                 fallProgress += fallSpeed;
-                if (fallProgress >= 1.0f && yPos > 0) {
+                if (fallProgress >= 1.0f) {
                     yPos--;
                     fallProgress -= 1.0f;
                 }
@@ -212,9 +211,9 @@ public:
         return yPos;
     }
 
-    void setJumpFallSpeed(float baseSpeed = 2) {
-        jumpSpeed = 5.0f + baseSpeed * 5.0f;
-        fallSpeed = 5.0f + baseSpeed * 5.0f;
+    void setJumpFallSpeed(float baseSpeed) {
+        jumpSpeed = 1.0f + baseSpeed * 5.0f;
+        fallSpeed = 1.0f + baseSpeed * 5.0f;
     }
 };
 
@@ -238,6 +237,8 @@ public:
         ScreenUtility::CursorSettings();
         srand((unsigned)time(nullptr));
         dino.setJumpFallSpeed(speed);
+
+        int loopcount = 0;
 
         while (isRunning) {
             //ScreenUtility::Clear();

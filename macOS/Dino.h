@@ -11,10 +11,8 @@ private:
     const int maxJumpCount = 2;
     int landingDelay = 0;
     const int landingDelayThreshold = 5;
-    float jumpSpeed = 5.0f;
-    float fallSpeed = 5.0f;
-    float jumpProgress = 0.0f;
-    float fallProgress = 0.0f;
+    float jumpSpeed = 0.9f;
+    float fallSpeed = 0.9f;
 public:
     void update();
     void draw();
