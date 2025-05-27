@@ -113,11 +113,23 @@ public:
         trees.erase(remove_if(trees.begin(), trees.end(),
             [](const Tree& t) {return t.isOffScreen();}), trees.end());
         
+        gapThreshold = 30.0f;
+
         gapCounter += 1.0f;
 
         if(gapCounter >= gapThreshold && trees.size() < 4)
         {
-            
+            float chance = 0.0f;
+            if (speed < 3.0f) {
+                chance = (static_cast<float>(rand() % 20 + 10) / 100.0f) * (speed / 3.0f);
+            } else {
+                chance = static_cast<float>(rand() % 20 + 50) / 100.0f;
+            }
+            if ((rand() % 100) < static_cast<int>(chance * 100)) {
+            trees.push_back(Tree());
+        }
+
+        gapCounter = 0.0f;
         }
     }
 
@@ -277,7 +289,7 @@ int main() {
         cout << "\n\n게임 오버! 최종 점수: " << game.getScore() << endl;
         cout << "\n게임이 끝났습니다. 다시 하시겠습니까? (y/n): " << endl;
         cin >> choice;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
     } while (choice == 'y' || choice == 'Y');
     return 0;
 }
