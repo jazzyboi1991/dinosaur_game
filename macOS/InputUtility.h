@@ -3,6 +3,6 @@
 
 #pragma once
 
-int getKeyDown();
+int getKeyDown(); // 키 입력을 인식시킴
 
 #endif
