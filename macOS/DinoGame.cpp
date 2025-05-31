@@ -23,7 +23,7 @@ void DinoGame::run() // 게임 루프 실행
     srand(time(nullptr)); // 랜덤 초기화
     dino.setJumpFallSpeed(speed); // 공룡 점프 시 상승/낙하 속도 설정
 
-    while (isRunning)
+    while (isRunning) // 게임이 실행 중일 때
     {
         int key = getKeyDown(); // 키보드 입력 감지
         bool space_pressed = (key == KEY_SPACE); // 스페이스 바 입력 여부 확인
